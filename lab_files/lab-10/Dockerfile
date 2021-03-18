@@ -1,4 +1,4 @@
-FROM gradle:jre8 as builder
+FROM gradle:jdk8 as builder
 
 COPY . /app
 RUN ls -la /app
@@ -12,11 +12,11 @@ RUN ls -la /app/build/libs
 FROM openjdk:8-jdk-alpine
 VOLUME /myvolume
 
-ARG TARGET=app/target
-COPY --from=builder ${TARGET}/ /app/target/RestaurantList.jar
+ARG TARGET=app/build
+COPY --from=builder ${TARGET}/ /app/build/RestaurantList.jar
 
 # Debug the build:
-RUN ls -la /app/target
+RUN ls -la /app/build
 
 
-ENTRYPOINT ["java","-jar","./app/target/RestaurantList.jar"]
+ENTRYPOINT ["java","-jar","./app/build/RestaurantList.jar"]
