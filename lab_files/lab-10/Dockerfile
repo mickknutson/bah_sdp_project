@@ -12,7 +12,7 @@ RUN ls -la /app/build/libs
 FROM openjdk:8-jdk-alpine
 VOLUME /myvolume
 
-ARG TARGET=app/build
+ARG TARGET=app/build/libs
 COPY --from=builder ${TARGET}/ /app/build/RestaurantList.jar
 
 # Debug the build:
