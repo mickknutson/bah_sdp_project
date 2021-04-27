@@ -12,11 +12,11 @@ RUN ls -la /app/build/libs
 FROM openjdk:8-jdk-alpine
 VOLUME /myvolume
 
-ARG TARGET=app/build
-COPY --from=builder ${TARGET}/ /app/build/RestaurantList.jar
+ARG TARGET=app/build/libs
+COPY --from=builder ${TARGET}/RestaurantList*.jar /app/build/RestaurantList.jar
 
 # Debug the build:
 RUN ls -la /app/build
-
+EXPOSE 9001
 
 ENTRYPOINT ["java","-jar","./app/build/RestaurantList.jar"]
